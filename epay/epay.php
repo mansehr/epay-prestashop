@@ -1007,7 +1007,7 @@ class EPay extends PaymentModule
 	{	
 		$order = new Order($params['id_order']);
 		
-		$html = $this->displayTransactionForm($params)	. '<br>';
+		$html = '<div id="epaypanel" class="panel">' . $this->displayTransactionForm($params)	. '<br>';
 		
 		if(Configuration::get('EPAY_ENABLE_PAYMENTREQUEST') == 1 && strlen(Configuration::get('EPAY_REMOTE_API_PASSWORD')) > 0 && ($order->total_paid-$order->getTotalPaid()) > 0)
 		{
@@ -1027,6 +1027,13 @@ class EPay extends PaymentModule
 			
 			$html .= $this->displayPaymentRequestForm($params) . '<br>';
 		}
+		
+		$html .= '</div>
+				<script type="text/javascript">
+					$(document).ready(function() {
+						$("#epaypanel").insertBefore("#formAddPaymentPanel");
+					});
+				</script>';
 		
 		return $html;
 	}
