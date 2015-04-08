@@ -949,8 +949,13 @@ class EPay extends PaymentModule
 		{
 			$output .= '
 			<script type="text/javascript">
+                            if(_gaq) {
 				_gaq.push([\'_setDomainName\', \'none\']);
 				_gaq.push([\'_setAllowLinker\', true]);
+                            }
+                            if(ga) {
+				ga(\'send\', \'pageview\');
+                            }
 			</script>';
 		}
 		
